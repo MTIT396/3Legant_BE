@@ -52,7 +52,7 @@ const createOrder = async (user_id, form) => {
 
     // 2. Tạo order mới
     const [orderResult] = await conn.query(
-      "INSERT INTO orders (user_id, total_price, status, created_at, first_name, last_name, phone_number, email, address, city, payment_method ) VALUES (?, ?, 'pending', ?,?,?,?,?,?,?,?)",
+      "INSERT INTO orders (user_id, total_price, status, created_at, first_name, last_name, phone_number, email, address, city, payment_method ) VALUES (?, ?, 'PENDING', ?,?,?,?,?,?,?,?)",
       [
         user_id,
         total_price,

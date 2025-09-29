@@ -1,12 +1,11 @@
 const pool = require("../config/db");
 const getNewestProducts = async (req, res) => {
   try {
-    let { limit } = req.query;
-    limit = limit ? parseInt(limit) : 10; // default 10 sản phẩm
+    // let { limit } = req.query;
+    // limit = limit ? parseInt(limit) : ; // default 10 sản phẩm
 
     const [rows] = await pool.query(
-      `SELECT * FROM nproducts ORDER BY created_at DESC LIMIT ?`,
-      [limit]
+      `SELECT * FROM nproducts ORDER BY created_at DESC `
     );
 
     res.json({ success: true, products: rows });

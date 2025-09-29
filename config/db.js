@@ -8,7 +8,6 @@ const dbConfig = {
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
   charset: "utf8mb4",
-  timezone: "+07:00",
   connectionLimit: 10,
   waitForConnections: true,
   queueLimit: 0,

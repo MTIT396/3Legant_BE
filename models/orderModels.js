@@ -73,7 +73,7 @@ const createOrder = async (user_id, form) => {
       `INSERT INTO order_items (order_id, product_id, quantity, price , label, color)
        SELECT ?, ci.product_id, ci.quantity, ci.price, ci.label, ci.color
        FROM cart_items ci
-       JOIN products p ON ci.product_id = p.product_id
+       JOIN nproducts p ON ci.product_id = p.id
        WHERE ci.cart_id = ?`,
       [orderId, cartId]
     );

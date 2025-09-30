@@ -38,10 +38,10 @@ const dbConfig = {
   // waitForConnections: true,
   // queueLimit: 0,
   // connectTimeout: 30000,
-  // ssl: sslConfig,
+  ssl: sslConfig,
 };
-
 const pool = mysql.createPool(dbConfig);
+
 pool.getConnection((err, connection) => {
   if (err) {
     console.error(err);

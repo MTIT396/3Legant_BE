@@ -2,6 +2,13 @@ const mysql = require("mysql2");
 const fs = require("fs");
 
 require("dotenv").config();
+if (process.env.NODE_ENV === "production") {
+  const fs = require("fs");
+  sslConfig = {
+    ca: fs.readFileSync(__dirname + "/certs/ca.pem"),
+    rejectUnauthorized: true,
+  };
+}
 
 const dbConfig = {
   host: process.env.DB_HOST,
@@ -13,10 +20,7 @@ const dbConfig = {
   connectionLimit: 10,
   waitForConnections: true,
   queueLimit: 0,
-  // ssl: {
-  //   ca: fs.readFileSync("./certs/ca.pem"), // đọc từ file
-  //   rejectUnauthorized: true,
-  // },
+  ssl: sslConfig,
 };
 
 const pool = mysql.createPool(dbConfig);

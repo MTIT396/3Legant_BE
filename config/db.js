@@ -1,54 +1,34 @@
 const mysql = require("mysql2");
-const fs = require("fs");
-const path = require("path");
-
 require("dotenv").config();
-if (process.env.NODE_ENV === "production") {
-  const caPath = path.join(__dirname, "certs/ca.pem");
 
-  // Kiểm tra file tồn tại
-  if (fs.existsSync(caPath)) {
-    sslConfig = {
-      ca: fs.readFileSync(caPath),
-      rejectUnauthorized: true,
-    };
-  } else {
-    console.error("⚠️ CA certificate not found at:", caPath);
-    // Fallback nếu không có file
-    sslConfig = {
-      rejectUnauthorized: false,
-    };
-  }
-}
 const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  port: parseInt(process.env.DB_PORT),
+  port: parseInt(process.env.DB_PORT, 10),
   charset: "utf8mb4",
-  connectionLimit: 5, // Giảm xuống
+  connectionLimit: 5,
   waitForConnections: true,
   queueLimit: 0,
   connectTimeout: 60000,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
-  // charset: "utf8mb4",
-  // connectionLimit: 10,
-  // waitForConnections: true,
-  // queueLimit: 0,
-  // connectTimeout: 30000,
-  ssl: sslConfig,
+  ssl: {
+    ca: process.env.DB_CA.replace(/\\n/g, "\n"),
+    rejectUnauthorized: false,
+  },
 };
+
 const pool = mysql.createPool(dbConfig);
 
 pool.getConnection((err, connection) => {
   if (err) {
-    console.error(err);
-    console.log(">>> Can't Connected to Database");
+    console.error("❌ Database connection error:", err.message);
   } else {
-    console.log(">>> Connected to Database");
+    console.log("✅ Connected to Database");
     connection.release();
   }
 });
+
 module.exports = pool.promise();

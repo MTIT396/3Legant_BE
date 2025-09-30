@@ -1,4 +1,6 @@
 const mysql = require("mysql2");
+const fs = require("fs");
+
 require("dotenv").config();
 
 const dbConfig = {
@@ -12,8 +14,8 @@ const dbConfig = {
   waitForConnections: true,
   queueLimit: 0,
   ssl: {
-    rejectUnauthorized: true, // false nếu server dùng self-signed cert
-    ca: process.env.DB_CA ? process.env.DB_CA.replace(/\\n/g, "\n") : undefined,
+    ca: fs.readFileSync("./certs/ca.pem"), // đọc từ file
+    rejectUnauthorized: true,
   },
 };
 

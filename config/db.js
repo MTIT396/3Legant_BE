@@ -13,10 +13,10 @@ const dbConfig = {
   connectionLimit: 10,
   waitForConnections: true,
   queueLimit: 0,
-  ssl: {
-    ca: fs.readFileSync("./certs/ca.pem"), // đọc từ file
-    rejectUnauthorized: true,
-  },
+  // ssl: {
+  //   ca: fs.readFileSync("./certs/ca.pem"), // đọc từ file
+  //   rejectUnauthorized: true,
+  // },
 };
 
 const pool = mysql.createPool(dbConfig);

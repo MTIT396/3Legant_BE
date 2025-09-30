@@ -11,6 +11,10 @@ const dbConfig = {
   connectionLimit: 10,
   waitForConnections: true,
   queueLimit: 0,
+  ssl: {
+    rejectUnauthorized: true, // false nếu server dùng self-signed cert
+    ca: process.env.DB_CA ? process.env.DB_CA.replace(/\\n/g, "\n") : undefined,
+  },
 };
 
 const pool = mysql.createPool(dbConfig);

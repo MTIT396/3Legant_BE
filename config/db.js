@@ -16,7 +16,7 @@ const dbConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
-  charset: "utf8mb4",
+  // charset: "utf8mb4",
   connectionLimit: 10,
   waitForConnections: true,
   queueLimit: 0,

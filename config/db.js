@@ -27,11 +27,18 @@ const dbConfig = {
   database: process.env.DB_DATABASE,
   port: parseInt(process.env.DB_PORT),
   charset: "utf8mb4",
-  connectionLimit: 10,
+  connectionLimit: 5, // Giảm xuống
   waitForConnections: true,
   queueLimit: 0,
-  connectTimeout: 30000,
-  ssl: sslConfig,
+  connectTimeout: 60000,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
+  // charset: "utf8mb4",
+  // connectionLimit: 10,
+  // waitForConnections: true,
+  // queueLimit: 0,
+  // connectTimeout: 30000,
+  // ssl: sslConfig,
 };
 
 const pool = mysql.createPool(dbConfig);
